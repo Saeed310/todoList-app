@@ -10,6 +10,18 @@ class App extends Component {
     ]
   }
 
+  componentDidMount() {
+    const storedItems = localStorage.getItem('todos');
+    if (storedItems) {
+      this.setState({ items: JSON.parse(storedItems) });
+    }
+  }
+
+  componentDidUpdate() {
+    const { items } = this.state;
+    localStorage.setItem('todos', JSON.stringify(items));
+  }
+
 deleteItem = (id) => {
   let items = this.state.items.filter(item => {
     return item.id !==id
